@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service" xmlns:intf="http://service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getInfo">
+    <complexType/>
+   </element>
+   <element name="getInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="getInfoReturn" type="impl:AreaInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AreaInfo">
+    <sequence>
+     <element name="area" nillable="true" type="xsd:string"/>
+     <element name="canNames" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="electionName" nillable="true" type="xsd:string"/>
+     <element name="numOfVotePerVoter" type="xsd:int"/>
+     <element name="ranked" type="xsd:boolean"/>
+     <element name="stationName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="addVote">
+    <complexType>
+     <sequence>
+      <element name="query" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addVoteResponse">
+    <complexType>
+     <sequence>
+      <element name="addVoteReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getInfoResponse">
+
+      <wsdl:part element="impl:getInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addVoteRequest">
+
+      <wsdl:part element="impl:addVote" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getInfoRequest">
+
+      <wsdl:part element="impl:getInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addVoteResponse">
+
+      <wsdl:part element="impl:addVoteResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="DeskService">
+
+      <wsdl:operation name="getInfo">
+
+         <wsdl:input message="impl:getInfoRequest" name="getInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getInfoResponse" name="getInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addVote">
+
+         <wsdl:input message="impl:addVoteRequest" name="addVoteRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addVoteResponse" name="addVoteResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="DeskServiceSoapBinding" type="impl:DeskService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addVote">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addVoteRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addVoteResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="DeskServiceService">
+
+      <wsdl:port binding="impl:DeskServiceSoapBinding" name="DeskService">
+
+         <wsdlsoap:address location="http://localhost:8080/Project-_Polling_Server/services/DeskService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

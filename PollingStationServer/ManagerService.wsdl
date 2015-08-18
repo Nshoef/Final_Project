@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service" xmlns:intf="http://service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="updateInfo">
+    <complexType>
+     <sequence>
+      <element name="area" type="xsd:string"/>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="updateInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="updateInfoReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="sentResult">
+    <complexType/>
+   </element>
+   <element name="sentResultResponse">
+    <complexType>
+     <sequence>
+      <element name="sentResultReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getResults">
+    <complexType>
+     <sequence>
+      <element name="can" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getResultsResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getResultsReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAreaInfo">
+    <complexType/>
+   </element>
+   <element name="getAreaInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="getAreaInfoReturn" type="impl:AreaInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AreaInfo">
+    <sequence>
+     <element name="area" nillable="true" type="xsd:string"/>
+     <element name="canNames" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="electionName" nillable="true" type="xsd:string"/>
+     <element name="numOfVotePerVoter" type="xsd:int"/>
+     <element name="ranked" type="xsd:boolean"/>
+     <element name="stationName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="sentResultRequest">
+
+      <wsdl:part element="impl:sentResult" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getResultsResponse">
+
+      <wsdl:part element="impl:getResultsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAreaInfoResponse">
+
+      <wsdl:part element="impl:getAreaInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateInfoRequest">
+
+      <wsdl:part element="impl:updateInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sentResultResponse">
+
+      <wsdl:part element="impl:sentResultResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getResultsRequest">
+
+      <wsdl:part element="impl:getResults" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAreaInfoRequest">
+
+      <wsdl:part element="impl:getAreaInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateInfoResponse">
+
+      <wsdl:part element="impl:updateInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ManagerService">
+
+      <wsdl:operation name="updateInfo">
+
+         <wsdl:input message="impl:updateInfoRequest" name="updateInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateInfoResponse" name="updateInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sentResult">
+
+         <wsdl:input message="impl:sentResultRequest" name="sentResultRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sentResultResponse" name="sentResultResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getResults">
+
+         <wsdl:input message="impl:getResultsRequest" name="getResultsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getResultsResponse" name="getResultsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdl:input message="impl:getAreaInfoRequest" name="getAreaInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAreaInfoResponse" name="getAreaInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ManagerServiceSoapBinding" type="impl:ManagerService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="updateInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="sentResult">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="sentResultRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="sentResultResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getResults">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getResultsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getResultsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAreaInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAreaInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ManagerServiceService">
+
+      <wsdl:port binding="impl:ManagerServiceSoapBinding" name="ManagerService">
+
+         <wsdlsoap:address location="http://localhost:8080/Project-_Polling_Server/services/ManagerService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://services" xmlns:intf="http://services" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://services" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getResult">
+    <complexType>
+     <sequence>
+      <element name="election" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getResultResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getResultReturn" type="impl:AreaResult"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="AreaResult">
+    <sequence>
+     <element name="area" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="getAreaInfo">
+    <complexType>
+     <sequence>
+      <element name="area" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAreaInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="getAreaInfoReturn" type="impl:AreaInfo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AreaInfo">
+    <sequence>
+     <element name="area" nillable="true" type="xsd:string"/>
+     <element name="canNames" nillable="true" type="impl:ArrayOf_xsd_string"/>
+     <element name="electionName" nillable="true" type="xsd:string"/>
+     <element name="numOfVotePerVoter" type="xsd:int"/>
+     <element name="ranked" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <element name="getSystem">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSystemResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getSystemReturn" type="impl:Area"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Area">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="numOfVotesPerVoter" type="xsd:int"/>
+     <element name="ranked" type="xsd:boolean"/>
+     <element name="systemName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="setCurrentElection">
+    <complexType>
+     <sequence>
+      <element name="electionName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setCurrentElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="setCurrentElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="endRunningElection">
+    <complexType/>
+   </element>
+   <element name="endRunningElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="endRunningElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewElection">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="electingSystem" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="setNewElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLastElectionCans">
+    <complexType>
+     <sequence>
+      <element name="area" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLastElectionCansResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getLastElectionCansReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewElectingSystem">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="numOfAreas" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewElectingSystemResponse">
+    <complexType>
+     <sequence>
+      <element name="setNewElectingSystemReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewArea">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="system" type="xsd:string"/>
+      <element name="novpv" type="xsd:int"/>
+      <element name="isRanked" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewAreaResponse">
+    <complexType>
+     <sequence>
+      <element name="setNewAreaReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setCandidates">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="cans" type="xsd:string"/>
+      <element name="electionName" type="xsd:string"/>
+      <element name="area" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setCandidatesResponse">
+    <complexType>
+     <sequence>
+      <element name="setCandidatesReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getResultResponse">
+
+      <wsdl:part element="impl:getResultResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="endRunningElectionRequest">
+
+      <wsdl:part element="impl:endRunningElection" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setNewAreaRequest">
+
+      <wsdl:part element="impl:setNewArea" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLastElectionCansResponse">
+
+      <wsdl:part element="impl:getLastElectionCansResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setNewAreaResponse">
+
+      <wsdl:part element="impl:setNewAreaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setNewElectingSystemRequest">
+
+      <wsdl:part element="impl:setNewElectingSystem" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setNewElectingSystemResponse">
+
+      <wsdl:part element="impl:setNewElectingSystemResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLastElectionCansRequest">
+
+      <wsdl:part element="impl:getLastElectionCans" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSystemRequest">
+
+      <wsdl:part element="impl:getSystem" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setCandidatesRequest">
+
+      <wsdl:part element="impl:setCandidates" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getResultRequest">
+
+      <wsdl:part element="impl:getResult" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAreaInfoResponse">
+
+      <wsdl:part element="impl:getAreaInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setCurrentElectionRequest">
+
+      <wsdl:part element="impl:setCurrentElection" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="endRunningElectionResponse">
+
+      <wsdl:part element="impl:endRunningElectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAreaInfoRequest">
+
+      <wsdl:part element="impl:getAreaInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSystemResponse">
+
+      <wsdl:part element="impl:getSystemResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setNewElectionResponse">
+
+      <wsdl:part element="impl:setNewElectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setCandidatesResponse">
+
+      <wsdl:part element="impl:setCandidatesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setNewElectionRequest">
+
+      <wsdl:part element="impl:setNewElection" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setCurrentElectionResponse">
+
+      <wsdl:part element="impl:setCurrentElectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ManagerService">
+
+      <wsdl:operation name="getResult">
+
+         <wsdl:input message="impl:getResultRequest" name="getResultRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getResultResponse" name="getResultResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdl:input message="impl:getAreaInfoRequest" name="getAreaInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAreaInfoResponse" name="getAreaInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSystem">
+
+         <wsdl:input message="impl:getSystemRequest" name="getSystemRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getSystemResponse" name="getSystemResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setCurrentElection">
+
+         <wsdl:input message="impl:setCurrentElectionRequest" name="setCurrentElectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setCurrentElectionResponse" name="setCurrentElectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="endRunningElection">
+
+         <wsdl:input message="impl:endRunningElectionRequest" name="endRunningElectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:endRunningElectionResponse" name="endRunningElectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewElection">
+
+         <wsdl:input message="impl:setNewElectionRequest" name="setNewElectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setNewElectionResponse" name="setNewElectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLastElectionCans">
+
+         <wsdl:input message="impl:getLastElectionCansRequest" name="getLastElectionCansRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getLastElectionCansResponse" name="getLastElectionCansResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewElectingSystem">
+
+         <wsdl:input message="impl:setNewElectingSystemRequest" name="setNewElectingSystemRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setNewElectingSystemResponse" name="setNewElectingSystemResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewArea">
+
+         <wsdl:input message="impl:setNewAreaRequest" name="setNewAreaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setNewAreaResponse" name="setNewAreaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setCandidates">
+
+         <wsdl:input message="impl:setCandidatesRequest" name="setCandidatesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setCandidatesResponse" name="setCandidatesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ManagerServiceSoapBinding" type="impl:ManagerService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getResult">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getResultRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getResultResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAreaInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAreaInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSystem">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSystemRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSystemResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setCurrentElection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setCurrentElectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setCurrentElectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="endRunningElection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="endRunningElectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="endRunningElectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewElection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setNewElectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setNewElectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLastElectionCans">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getLastElectionCansRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getLastElectionCansResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewElectingSystem">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setNewElectingSystemRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setNewElectingSystemResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewArea">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setNewAreaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setNewAreaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setCandidates">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setCandidatesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setCandidatesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ManagerServiceService">
+
+      <wsdl:port binding="impl:ManagerServiceSoapBinding" name="ManagerService">
+
+         <wsdlsoap:address location="http://localhost:8080/Project-_Main_Server/services/ManagerService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
