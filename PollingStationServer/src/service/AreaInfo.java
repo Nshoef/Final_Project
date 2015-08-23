@@ -1,12 +1,14 @@
 package service;
 
+import java.io.Serializable;
+
 /**
  * This class contain the relevant information of an election
  *  to be used by the polling station server to inform the desks and the manager of the station.
  * @author Noam
  *
  */
-public class AreaInfo {
+public class AreaInfo implements Serializable{
 	private String stationName;
 	private String electionName;
 	private String area;

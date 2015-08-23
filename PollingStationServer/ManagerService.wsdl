@@ -4,6 +4,20 @@
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
   <schema elementFormDefault="qualified" targetNamespace="http://service" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getResults">
+    <complexType>
+     <sequence>
+      <element name="can" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getResultsResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getResultsReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="updateInfo">
     <complexType>
      <sequence>
@@ -16,30 +30,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     <complexType>
      <sequence>
       <element name="updateInfoReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="sentResult">
-    <complexType/>
-   </element>
-   <element name="sentResultResponse">
-    <complexType>
-     <sequence>
-      <element name="sentResultReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getResults">
-    <complexType>
-     <sequence>
-      <element name="can" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getResultsResponse">
-    <complexType>
-     <sequence>
-      <element maxOccurs="unbounded" name="getResultsReturn" type="xsd:int"/>
      </sequence>
     </complexType>
    </element>
@@ -68,6 +58,26 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="stationName" nillable="true" type="xsd:string"/>
     </sequence>
    </complexType>
+   <element name="sentResult">
+    <complexType/>
+   </element>
+   <element name="sentResultResponse">
+    <complexType>
+     <sequence>
+      <element name="sentResultReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="closeStation">
+    <complexType/>
+   </element>
+   <element name="closeStationResponse">
+    <complexType>
+     <sequence>
+      <element name="closeStationReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
   </schema>
  </wsdl:types>
 
@@ -95,17 +105,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="updateInfoRequest">
+   <wsdl:message name="closeStationResponse">
 
-      <wsdl:part element="impl:updateInfo" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="sentResultResponse">
-
-      <wsdl:part element="impl:sentResultResponse" name="parameters">
+      <wsdl:part element="impl:closeStationResponse" name="parameters">
 
       </wsdl:part>
 
@@ -119,9 +121,25 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="updateInfoRequest">
+
+      <wsdl:part element="impl:updateInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="getAreaInfoRequest">
 
       <wsdl:part element="impl:getAreaInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="sentResultResponse">
+
+      <wsdl:part element="impl:sentResultResponse" name="parameters">
 
       </wsdl:part>
 
@@ -135,31 +153,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="closeStationRequest">
+
+      <wsdl:part element="impl:closeStation" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:portType name="ManagerService">
-
-      <wsdl:operation name="updateInfo">
-
-         <wsdl:input message="impl:updateInfoRequest" name="updateInfoRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:updateInfoResponse" name="updateInfoResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="sentResult">
-
-         <wsdl:input message="impl:sentResultRequest" name="sentResultRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:sentResultResponse" name="sentResultResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
 
       <wsdl:operation name="getResults">
 
@@ -168,6 +170,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
        </wsdl:input>
 
          <wsdl:output message="impl:getResultsResponse" name="getResultsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateInfo">
+
+         <wsdl:input message="impl:updateInfoRequest" name="updateInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateInfoResponse" name="updateInfoResponse">
 
        </wsdl:output>
 
@@ -185,11 +199,53 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="sentResult">
+
+         <wsdl:input message="impl:sentResultRequest" name="sentResultRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:sentResultResponse" name="sentResultResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="closeStation">
+
+         <wsdl:input message="impl:closeStationRequest" name="closeStationRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:closeStationResponse" name="closeStationResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
    </wsdl:portType>
 
    <wsdl:binding name="ManagerServiceSoapBinding" type="impl:ManagerService">
 
       <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getResults">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getResultsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getResultsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
 
       <wsdl:operation name="updateInfo">
 
@@ -202,6 +258,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="updateInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAreaInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAreaInfoResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -227,35 +301,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getResults">
+      <wsdl:operation name="closeStation">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="getResultsRequest">
+         <wsdl:input name="closeStationRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="getResultsResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getAreaInfo">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="getAreaInfoRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="getAreaInfoResponse">
+         <wsdl:output name="closeStationResponse">
 
             <wsdlsoap:body use="literal"/>
 

@@ -14,10 +14,8 @@ import service.DeskServiceProxy;
  * id is a unique identifier for the vote 
  */
 public class DeskManager {
-	private int num;
 	private DeskService ws;
 	private AreaInfo info;
-	private int id;
 
 	/**
 	 * in initialisation of the desk it's automatically asks for the relevant information form the station database
@@ -26,9 +24,11 @@ public class DeskManager {
 	 */
 	public DeskManager(int num) throws RemoteException {
 		ws = new DeskServiceProxy();
-	    info = ws.getInfo();
-	    this.num = num;
-	    id = 0;
+		if(ws.getInfo() != null) {
+		    info = ws.getInfo();
+		} else {
+			throw new RemoteException();
+		}
 	}
 	
 	/**
@@ -46,17 +46,16 @@ public class DeskManager {
 	 * @throws RemoteException
 	 */
 	public boolean vote(String[] cans) throws RemoteException {
-        String query = "INSERT INTO VOTES (ID, ELECTION_NAME, AREA_NAME";
+        String query = "INSERT INTO VOTES (ELECTION_NAME, AREA_NAME";
 		for(int i=1; i<=info.getNumOfVotePerVoter(); i++) {
 			query = query+", VOTE"+i;
 		}
-		query = query+") VALUES ('"+info.getStationName()+num+id+"', '"+info.getElectionName()+"', '"+info.getArea();
+		query = query+") VALUES ('"+info.getElectionName()+"', '"+info.getArea();
 		for(String s : cans) {
 			query = query+"', '"+s;
 		}
 		query = query+"')";
-		return ws.addVote(query);
-		
+		ws.addVote(query);
+		return true;
 	}
-
 }

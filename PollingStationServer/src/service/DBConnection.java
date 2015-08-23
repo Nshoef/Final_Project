@@ -42,8 +42,8 @@ public class DBConnection {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}		
-		return false;
 	}
 	
 	/**
@@ -51,29 +51,23 @@ public class DBConnection {
 	 * @return an AreaInfo object contains the relevant information about the election.
 	 */
 	public AreaInfo getInfo() {
-		String stationName;
-		String electionName;
-		String area;
-		String[] cans;
-		int novpv;
-		boolean isRanked;
 		try {
 			ResultSet info = con.createStatement().executeQuery(
 					"SELECT STATION_NAME, AREA_NAME, ELECTION_NAME, NUM_OF_VOTES_PER_VOTER, IS_RANKED FROM INFO");
 			info.next();
-			stationName = info.getString(1);
-			area = info.getString(2);
-			electionName = info.getString(3);
+			String stationName = info.getString(1);
+			String area = info.getString(2);
+			String electionName = info.getString(3);
 			
-			novpv = info.getInt(4);
-			isRanked = info.getBoolean(1);
+			int novpv = info.getInt(4);
+			boolean isRanked = info.getBoolean(1);
 			ResultSet can = con.createStatement().executeQuery(
 					"SELECT CANDIDATE_NAME FROM CANDIDATES WHERE ELECTION_NAME = '"+electionName+"'");
 			can.last();
-			cans = new String[can.getRow()];
+			String[] cans = new String[can.getRow()];
 			can.first();
-			for(String s : cans) {
-				s = can.getString(1);
+			for(int i=0; i<cans.length; i++) {
+				cans[i] = can.getString(1);
 				can.next();
 			}
 			return new AreaInfo(stationName, electionName, area, cans, novpv, isRanked);
@@ -90,21 +84,25 @@ public class DBConnection {
 	 * @return true if the database was updated successfully.
 	 * @throws RemoteException
 	 */
-	public boolean updateInfo(String area, String name) throws RemoteException {
-		services.AreaInfo info = proxy.getAreaInfo(area);
-		String election = info.getElectionName();
-		String[] cans = info.getCanNames();
-		int novpv = info.getNumOfVotePerVoter();
-		int isRanked = info.isRanked()? 1 : 0;
-		String sql = "INSERT INTO INFO VALUES ('"+name+"', '"+area+"','"+election+"', '"+novpv+"', '"+isRanked+"')";
+	public boolean updateInfo(String area, String name) {
 		try {
+			services.AreaInfo info = proxy.getAreaInfo(area);
+			if(info == null) {
+				return false;
+			}
+			String election = info.getElectionName();
+			String[] cans = info.getCanNames();
+			int novpv = info.getNumOfVotePerVoter();
+			int isRanked = info.isRanked()? 1 : 0;
+			String sql = "INSERT INTO INFO VALUES ('"+name+"', '"+area+"','"+election+"', '"+novpv+"', '"+isRanked+"')";
 			con.createStatement().execute("DELETE FROM INFO"); //delete any previous info
+			con.createStatement().execute("DELETE FROM CANDIDATES"); //delete any previous candidates
 			con.createStatement().execute(sql);
 			for(String s : cans) {
-				con.createStatement().execute("INSERT INTO CANDIDATES VALUES('"+s+"', '"+election+"')"); //missing id ???
+				con.createStatement().execute("INSERT INTO CANDIDATES VALUES('"+s+"', '"+election+"')"); 
 			}
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException | RemoteException e) {
 			return false;
 		}
 	}
@@ -129,10 +127,8 @@ public class DBConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
-		
+		return null;	
 	}
-	
 	
 	/**
 	 * This method send all the votes from the local database to the main database
@@ -143,34 +139,34 @@ public class DBConnection {
 		try {
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM VOTES");
 			while(result.next()) {
-				String query = 
-						"INSERT INTO VOTES (ID, ELECTION_NAME, AREA_NAMe";
-				for(int i=1; i<=getInfo().getNumOfVotePerVoter(); i++) {
-					query = query+", VOTE"+i;
-				}
-				query = query+") VALUES"
-						+ "('"+result.getString(1)+"', '"+result.getString(2)+"', '"+result.getString(3);
+				String  station_id = result.getInt(1)+getInfo().getStationName();
+				String election = result.getString(2);
+				String area = result.getString(3);
+				String[] votes = new String[getInfo().getNumOfVotePerVoter()];
 				for(int i=0; i<getInfo().getNumOfVotePerVoter(); i++) {
-					query = query+"', '"+ result.getString(i+4);
+					votes[i] = result.getString(i+4);
 				}
-				query = query+"')";
-				proxy.updateResults(query);
+				proxy.updateResults(station_id, election, area, votes);
 			}
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
+		}	
+	}
+		
+		/**
+		 * This method remove all the information from the database.
+		 */
+	public boolean closeStation() {
+		try {
+			con.createStatement().execute("DELETE FROM VOTE, INFO, CANDIDATES");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return  false;
 		}
-		return false;	
-	}
-	
-	public static void main(String[] args) throws SQLException {
-		DBConnection db  = new DBConnection();
-		
-	
-			
-			
-		
-		
 		
 	}
+	
 }

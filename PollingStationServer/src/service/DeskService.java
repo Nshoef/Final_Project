@@ -28,6 +28,4 @@ public class DeskService {
 	public AreaInfo getInfo() {
 		return db.getInfo();
 	}
-	
-
 }

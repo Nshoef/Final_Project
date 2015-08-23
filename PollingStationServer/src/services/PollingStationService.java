@@ -8,6 +8,6 @@
 package services;
 
 public interface PollingStationService extends java.rmi.Remote {
-    public boolean updateResults(java.lang.String statement) throws java.rmi.RemoteException;
     public services.AreaInfo getAreaInfo(java.lang.String area) throws java.rmi.RemoteException;
+    public boolean updateResults(java.lang.String id, java.lang.String election, java.lang.String area, java.lang.String[] votes) throws java.rmi.RemoteException;
 }

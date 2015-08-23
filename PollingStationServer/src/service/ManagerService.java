@@ -51,6 +51,14 @@ public class ManagerService {
 		return db.getInfo();
 	}
 	
+	/**
+	 * This method remove all the information from the database.
+	 * @return
+	 */
+	public boolean closeStation() {
+		return db.closeStation();
+	}
+	
 
 
 }

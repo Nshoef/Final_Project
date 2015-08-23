@@ -44,10 +44,10 @@ public class ManagerServiceProxy implements services.ManagerService {
     return managerService;
   }
   
-  public services.AreaResult[] getResult(java.lang.String election) throws java.rmi.RemoteException{
+  public int getResult(java.lang.String election, java.lang.String area, java.lang.String can, int voteNum) throws java.rmi.RemoteException{
     if (managerService == null)
       _initManagerServiceProxy();
-    return managerService.getResult(election);
+    return managerService.getResult(election, area, can, voteNum);
   }
   
   public services.AreaInfo getAreaInfo(java.lang.String area) throws java.rmi.RemoteException{
@@ -62,6 +62,54 @@ public class ManagerServiceProxy implements services.ManagerService {
     return managerService.getSystem(name);
   }
   
+  public boolean setNewArea(java.lang.String name, java.lang.String system, int novpv, boolean isRanked) throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.setNewArea(name, system, novpv, isRanked);
+  }
+  
+  public java.lang.String[] getSavedSystems() throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.getSavedSystems();
+  }
+  
+  public boolean setNewElection(java.lang.String name, java.lang.String electingSystem) throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.setNewElection(name, electingSystem);
+  }
+  
+  public boolean setCandidates(java.lang.String[] cans, java.lang.String electionName, java.lang.String area) throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.setCandidates(cans, electionName, area);
+  }
+  
+  public java.lang.String[] getCans(java.lang.String election, java.lang.String area) throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.getCans(election, area);
+  }
+  
+  public boolean setNewElectingSystem(java.lang.String name, int numOfAreas) throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.setNewElectingSystem(name, numOfAreas);
+  }
+  
+  public java.lang.String[] getLastElectionCans(java.lang.String area, java.lang.String system) throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.getLastElectionCans(area, system);
+  }
+  
+  public java.lang.String[] getSavedElectionsNames() throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.getSavedElectionsNames();
+  }
+  
   public boolean setCurrentElection(java.lang.String electionName) throws java.rmi.RemoteException{
     if (managerService == null)
       _initManagerServiceProxy();
@@ -74,34 +122,10 @@ public class ManagerServiceProxy implements services.ManagerService {
     return managerService.endRunningElection();
   }
   
-  public java.lang.String[] getLastElectionCans(java.lang.String area) throws java.rmi.RemoteException{
+  public java.lang.String getSystemElection(java.lang.String election) throws java.rmi.RemoteException{
     if (managerService == null)
       _initManagerServiceProxy();
-    return managerService.getLastElectionCans(area);
-  }
-  
-  public boolean setNewElectingSystem(java.lang.String name, int numOfAreas) throws java.rmi.RemoteException{
-    if (managerService == null)
-      _initManagerServiceProxy();
-    return managerService.setNewElectingSystem(name, numOfAreas);
-  }
-  
-  public boolean setNewArea(java.lang.String name, java.lang.String system, int novpv, boolean isRanked) throws java.rmi.RemoteException{
-    if (managerService == null)
-      _initManagerServiceProxy();
-    return managerService.setNewArea(name, system, novpv, isRanked);
-  }
-  
-  public boolean setCandidates(java.lang.String[] cans, java.lang.String electionName, java.lang.String area) throws java.rmi.RemoteException{
-    if (managerService == null)
-      _initManagerServiceProxy();
-    return managerService.setCandidates(cans, electionName, area);
-  }
-  
-  public boolean setNewElection(java.lang.String name, java.lang.String electingSystem) throws java.rmi.RemoteException{
-    if (managerService == null)
-      _initManagerServiceProxy();
-    return managerService.setNewElection(name, electingSystem);
+    return managerService.getSystemElection(election);
   }
   
   

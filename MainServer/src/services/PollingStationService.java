@@ -28,9 +28,7 @@ public class PollingStationService {
 	 * @param statment is the insertion statement containing the vote information.
 	 * @return
 	 */
-	public boolean updateResults(String statement) {
-		return db.updateResults(statement);
-		
+	public boolean updateResults(String id, String election, String area, String[] votes) {
+		return db.addVote(id, election, area, votes);	
 	}
-
 }
