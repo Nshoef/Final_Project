@@ -9,5 +9,5 @@ package service;
 
 public interface DeskService extends java.rmi.Remote {
     public service.AreaInfo getInfo() throws java.rmi.RemoteException;
-    public boolean addVote(java.lang.String query) throws java.rmi.RemoteException;
+    public boolean addVote(java.lang.String[] cans) throws java.rmi.RemoteException;
 }

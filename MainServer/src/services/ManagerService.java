@@ -1,5 +1,6 @@
 package services;
 
+
 import javax.jws.WebService;
 
 /**
@@ -9,9 +10,24 @@ import javax.jws.WebService;
  */
 @WebService
 public class ManagerService {
-	private static DBConnection db = new DBConnection();
+	private static DBConnection db;
 	
+	static {
+		db = new DBConnectionImpl();
+	}
 	
+	/**
+	 * This is a default constructor
+	 */
+	public ManagerService() {}
+
+	/**
+	 * This constructor enable the class to use a non default database connection (used by the testers).
+	 * @param db the DBConnection to be used
+	 */
+	public ManagerService(DBConnection db) {
+		ManagerService.db = db;
+	}
 	
 	/**
 	 * This method return the relevant information to the given area as an AreaInfo object
@@ -23,15 +39,32 @@ public class ManagerService {
 	}
 	
 	/**
-	 * This method set a new electing system on the database(not include the setting of the particular area).
-	 * @param name is the name of the new system.
-	 * @param numOfAreas is the number of areas in the new system.
-	 * @return true if the new system was successfully updated on the database.
+	 * This method set a new electing system in the database.
+	 * @param name is the name of the electing system.
+	 * @param areas is a list with the names of the areas of the system
+	 * @param novpvs is an array of in which the number of candidates each voter has to choose (where novpvs[i] match areas[i]).
+	 * @param areRanked is an array of boolean which state if the novpvs has to be in order (novpvs[i] match areRanked[i]).
+	 * @return true if the system was successfully updated in the database.
 	 */
-	public boolean setNewElectingSystem(String name, int numOfAreas) {
-		return db.setNewElectingSystm(name, numOfAreas);
+	public boolean setNewElectingSystem(String name, String[] areas, int[] novpvs, boolean[] areRanked) {
+		return db.setNewElectingSystem(name, areas, novpvs, areRanked);
 	}
 	
+	/**
+	 * This method create a new election in the database according to the given parameters.
+	 * @param name is the name of the election.
+	 * @param system is the name of the electing system to be use in this elections.
+	 * @param area is the areas of the system (must match the system's areas).
+	 * @param cans is a list of a list of candidates for each area (String[i][] is the candidates for area area[i])
+	 * @return
+	 */
+	public boolean createNewElection(String name, String system) {
+		return db.setNewElection(name, system);
+	}
+	public boolean setCandidates(String[] cans, String electionName, String area) {
+		return db.setCandidates(cans, electionName, area);
+	}
+
 	/**
 	 * This method return the names of the saved electing systems.
 	 * @return an array of string with the names of the saved systems.
@@ -40,36 +73,14 @@ public class ManagerService {
 		return db.getSavedSystems();
 	}
 	
-	/**
-	 * This method set a new area on a given system
-	 * @param name is the name of the area.
-	 * @param system is the voting system which this area is a part of.
-	 * @param novpv is the number of votes which each voter has to choose.
-	 * @param isRanked is a boolean which state if the the votes of each voter should be in order or not.
-	 * @return true if the new area was successfully updated in the database.
-	 */
-	public boolean setNewArea(String name, String system, int novpv, boolean isRanked) {
-		return db.setNewArea(name, system, novpv, isRanked);
-	}
 	
 	/**
 	 * This method return a list of the candidates who run in this area on the last election.
 	 * @param area is the name of the area.
-	 * @return an array of string with the name of the candidates or an empty array if there wasn't any previous election.
+	 * @return an array of string with the name of the candidates or null if there is no previous election.
 	 */
 	public String[] getLastElectionCans(String area, String system) {
 		return db.getLastElectionCans(area, system);
-	}
-	
-	/**
-	 * This method set candidates who run on a given election and area.
-	 * @param cans is the names of the candidates.
-	 * @param electionName is the election these candidates run for.
-	 * @param area is the area they run on.
-	 * @return true if the database was successfully updated.
-	 */
-	public boolean setCandidates(String[] cans, String electionName, String area) {
-		return db.setCandidates(cans, electionName, area);
 	}
 	
 	/**
@@ -78,16 +89,6 @@ public class ManagerService {
 	 */
 	public String[] getSavedElectionsNames() {
 		return db.getSavedElectionsNames();
-	}
-	
-	/**
-	 * This method set a new election on a given electing system.
-	 * @param name is the name of the new election.
-	 * @param electingSystem is the system which is used in this election.
-	 * @return true if the new election was successfully updated on the database.
-	 */
-	public boolean setNewElection(String name, String electingSystem) {
-		return db.setNewElection(name, electingSystem);
 	}
 	
 	/**
@@ -145,5 +146,31 @@ public class ManagerService {
 	 */
 	public Integer getResult(String election, String area, String can, int voteNum) {
 		return db.getResult(election, area, can, voteNum);
+	}
+	
+	/**
+	 * This method remove the given election only if there is no votes associate with it.
+	 * @param name is the name of the election to be removed.
+	 * @return true if the election removed from the database.
+	 */
+	public boolean removeElection(String name) {
+		return db.removeElection(name);
+	}
+	
+	/**
+	 * This method remove the given electing system from the system only if there are no election associate with it.
+	 * @param name is the name of the system to be removed.
+	 * @return true if the electing system removed from the database.
+	 */
+	public boolean removeSystem(String name) {
+		return db.removeSystem(name);
+	}
+	
+	/**
+	 * This method return the name of the running election.
+	 * @return the name of the running election or null if there is no running election.
+	 */
+	public String getRunningElection(){
+		return db.getRunningElection();
 	}
 }

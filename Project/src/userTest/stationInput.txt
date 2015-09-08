@@ -1,0 +1,14 @@
+4
+3
+2
+1
+my station
+centre
+my station
+west
+0
+1
+my station
+north
+3
+0

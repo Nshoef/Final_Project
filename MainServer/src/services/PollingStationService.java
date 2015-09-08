@@ -11,8 +11,24 @@ import javax.jws.WebService;
  */
 @WebService
 public class PollingStationService {
-	private static DBConnection db = new DBConnection();
+	private static DBConnection db;
 	
+	static {
+		db = new DBConnectionImpl();
+	}
+	
+	/**
+	 * This is a default constructor
+	 */
+	public PollingStationService() {}
+	
+	/**
+	 * This constructor enable the class to use a non default database connection (used by the testers).
+	 * @param db the DBConnection to be used
+	 */
+	public PollingStationService(DBConnection db) {
+		PollingStationService.db = db;
+	}
 	
 	/**
 	 * This method return the relevant information about the given area.

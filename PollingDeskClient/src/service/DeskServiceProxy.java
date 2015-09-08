@@ -50,10 +50,10 @@ public class DeskServiceProxy implements service.DeskService {
     return deskService.getInfo();
   }
   
-  public boolean addVote(java.lang.String query) throws java.rmi.RemoteException{
+  public boolean addVote(java.lang.String[] cans) throws java.rmi.RemoteException{
     if (deskService == null)
       _initDeskServiceProxy();
-    return deskService.addVote(query);
+    return deskService.addVote(cans);
   }
   
   

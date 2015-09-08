@@ -56,12 +56,6 @@ public class ManagerServiceProxy implements service.ManagerService {
     return managerService.updateInfo(area, name);
   }
   
-  public service.AreaInfo getAreaInfo() throws java.rmi.RemoteException{
-    if (managerService == null)
-      _initManagerServiceProxy();
-    return managerService.getAreaInfo();
-  }
-  
   public boolean sentResult() throws java.rmi.RemoteException{
     if (managerService == null)
       _initManagerServiceProxy();
@@ -72,6 +66,12 @@ public class ManagerServiceProxy implements service.ManagerService {
     if (managerService == null)
       _initManagerServiceProxy();
     return managerService.closeStation();
+  }
+  
+  public service.AreaInfo getAreaInfo() throws java.rmi.RemoteException{
+    if (managerService == null)
+      _initManagerServiceProxy();
+    return managerService.getAreaInfo();
   }
   
   

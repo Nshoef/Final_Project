@@ -1,0 +1,45 @@
+5
+4
+3
+2
+election
+1
+my system
+2
+south
+3
+y
+north
+1
+5
+4
+3
+2
+my election
+system
+my system
+y
+can1
+k
+y
+can1
+y
+can2
+y
+can3
+n
+y
+can 1
+y
+can 2
+n
+1
+my system
+2
+my election
+3
+my election
+5
+election
+my election
+0

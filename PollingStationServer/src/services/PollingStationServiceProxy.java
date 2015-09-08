@@ -44,16 +44,16 @@ public class PollingStationServiceProxy implements services.PollingStationServic
     return pollingStationService;
   }
   
-  public services.AreaInfo getAreaInfo(java.lang.String area) throws java.rmi.RemoteException{
-    if (pollingStationService == null)
-      _initPollingStationServiceProxy();
-    return pollingStationService.getAreaInfo(area);
-  }
-  
   public boolean updateResults(java.lang.String id, java.lang.String election, java.lang.String area, java.lang.String[] votes) throws java.rmi.RemoteException{
     if (pollingStationService == null)
       _initPollingStationServiceProxy();
     return pollingStationService.updateResults(id, election, area, votes);
+  }
+  
+  public services.AreaInfo getAreaInfo(java.lang.String area) throws java.rmi.RemoteException{
+    if (pollingStationService == null)
+      _initPollingStationServiceProxy();
+    return pollingStationService.getAreaInfo(area);
   }
   
   

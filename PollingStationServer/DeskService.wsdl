@@ -32,7 +32,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="addVote">
     <complexType>
      <sequence>
-      <element name="query" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="cans" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>

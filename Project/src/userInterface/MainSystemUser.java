@@ -1,22 +1,29 @@
-package manager;
+package userInterface;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import manager.Manager;
+import manager.ManagerImpl;
 import services.Area;
+import services.ManagerServiceProxy;
 /**
  * This class is a simple user interface to the main manager part of the system.
  * @author Noam
  *
  */
-public class MainSystemUser {
+public class MainSystemUser implements Runnable{
 	private static Scanner in;
-	private static Manager manager = new Manager();
+	private static Manager manager;
 	
 	public MainSystemUser(InputStream input) {
+		manager = new ManagerImpl(new ManagerServiceProxy());
 		in = new Scanner(input);
+	}
+	public static void main(String[] args) {
+		new MainSystemUser(System.in).run();
 	}
 
 	
@@ -245,6 +252,10 @@ public class MainSystemUser {
 	 * This method start a new voting process on an election according to the user choice.
 	 */
 	private void seCurrentElection() {
+		if(manager.getRunningElection() != null) {
+			System.out.println("Election is already running");
+			return;
+			}
 		try {
 			boolean check = false;
 			while(!check) {
@@ -264,54 +275,54 @@ public class MainSystemUser {
 					System.out.println("Connection problem or illegal input, make sure you enter the name correctly");
 				}
 			}
-		
 		} catch (NullPointerException e) {
 			System.out.println("No election found");
-		}
-		
+		}	
 	}
 	
 	/**
 	 * This method view the result of an election according to the user choice.
 	 */
 	private void viewResult() { 
-		String[] elections = manager.getSavedElectionsNames();
-		if(elections == null) {
-			System.out.println("No elections found");
-		}else if(elections.length == 0) {
+		if(manager.getSavedElectionsNames() == null) { // if there are no election in the system
 			System.out.println("No elections found");
 		} else {
-			boolean check = false;
-			while(!check) {
-				System.out.println("Please type the name of the election to be viewed or 0 to exit: ");
-				for(String s : manager.getSavedElectionsNames()) {
-					System.out.println(s);
-				}
-				String election  = in.nextLine();
-				if(election.equals(0)) {
-					check = true;
-				} else {
+			String[] elections =  manager.getSavedElectionsNames();
+			if(elections.length == 0) { //this case not spouse to  as if there are no system it should be null
+				System.out.println("No elections found");	
+			} else {
+				boolean check = false;
+				while(!check) {
+					System.out.println("Please type the name of the election to be viewed or 0 to exit: ");
 					for(String s : manager.getSavedElectionsNames()) {
-						if(election.equals(s)) {
-							String system = manager.getSystemElection(election);
-							Area[] areas = manager.getSystemAreas(system);
-							for(int i=0; i<areas.length; i++) {
-								System.out.println("Result for area "+areas[i].getName()+":");
-								String[] cans = manager.getCans(election, areas[i].getName());
-								for(String c : cans) {
-									System.out.print("Candidate "+ c+": ");
-									for(int j=1; j<=areas[i].getNumOfVotesPerVoter();j++) {
-										System.out.print("Vote "+j+"["+manager.getResult(election, areas[i].getName(), c , j)+"] ");
+						System.out.println(s);
+					}
+					String election  = in.nextLine();
+					if(election.equals(0)) {
+						check = true;
+					} else {
+						for(String s : manager.getSavedElectionsNames()) {
+							if(election.equals(s)) {
+								String system = manager.getSystemElection(election);
+								Area[] areas = manager.getSystemAreas(system);
+								for(int i=0; i<areas.length; i++) {
+									System.out.println("Result for area "+areas[i].getName()+":");
+									String[] cans = manager.getCans(election, areas[i].getName());
+									for(String c : cans) {
+										System.out.print("Candidate "+ c+": ");
+										for(int j=1; j<=areas[i].getNumOfVotesPerVoter();j++) {
+											System.out.print("Vote "+j+"["+manager.getResult(election, areas[i].getName(), c , j)+"] ");
+										}
+										System.out.println();
 									}
 									System.out.println();
 								}
-								System.out.println();
+								check = true;
+								return;
 							}
-							check = true;
-							return;
 						}
+						System.out.println("No such election, type again");
 					}
-					System.out.println("No such election, type again");
 				}
 			}
 		}

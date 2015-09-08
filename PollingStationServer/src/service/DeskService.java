@@ -1,6 +1,10 @@
 package service;
 
+
 import javax.jws.WebService;
+
+import services.PollingStationServiceProxy;
+
 
 /**
  * 
@@ -10,15 +14,32 @@ import javax.jws.WebService;
  */
 @WebService
 public class DeskService {
-	private static DBConnection db = new DBConnection();
+	private static DBConnection db;
+	
+	static {
+		db = new DBConnectionImpl(new PollingStationServiceProxy());
+	}
+
+	/**
+	 * This is a default construction
+	 */
+	public DeskService() {}
 	
 	/**
-	 * This method add a vote to the database by executing the given query.
-	 * @param query is an insertion sql query with the relevant information.
-	 * @return true if the query was written successful on the database
+	 * This construction enable the user to use his own connection to the database (used by the testers).
+	 * @param db is the DBConnection to be used.
 	 */
-	public boolean addVote(String query) {
-		return db.addVote(query);
+	public DeskService(DBConnection db) {
+		DeskService.db = db;
+	}
+	
+	/**
+	 * This method add a vote to the database.
+	 * @param cans is the candidate/s which the voter chooses.
+	 * @return true if the vote was written successful on the database.
+	 */
+	public boolean addVote(String[] cans) {
+		return db.addVote(cans);
 	}
 	
 	/**

@@ -65,5 +65,4 @@ public class AreaInfo implements Serializable{
 	public boolean isRanked() {
 		return isRanked;
 	}
-
 }

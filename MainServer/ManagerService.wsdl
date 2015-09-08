@@ -21,6 +21,176 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
+   <element name="getSystem">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSystemResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getSystemReturn" type="impl:Area"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Area">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="numOfVotesPerVoter" type="xsd:int"/>
+     <element name="ranked" type="xsd:boolean"/>
+     <element name="systemName" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="getRunningElection">
+    <complexType/>
+   </element>
+   <element name="getRunningElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="getRunningElectionReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSystemElection">
+    <complexType>
+     <sequence>
+      <element name="election" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSystemElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="getSystemElectionReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="endRunningElection">
+    <complexType/>
+   </element>
+   <element name="endRunningElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="endRunningElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setCurrentElection">
+    <complexType>
+     <sequence>
+      <element name="electionName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setCurrentElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="setCurrentElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSavedElectionsNames">
+    <complexType/>
+   </element>
+   <element name="getSavedElectionsNamesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getSavedElectionsNamesReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLastElectionCans">
+    <complexType>
+     <sequence>
+      <element name="area" type="xsd:string"/>
+      <element name="system" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLastElectionCansResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getLastElectionCansReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createNewElection">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="system" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createNewElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="createNewElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewElectingSystem">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="areas" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="novpvs" type="xsd:int"/>
+      <element maxOccurs="unbounded" name="areRanked" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewElectingSystemResponse">
+    <complexType>
+     <sequence>
+      <element name="setNewElectingSystemReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeElection">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeElectionResponse">
+    <complexType>
+     <sequence>
+      <element name="removeElectionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCans">
+    <complexType>
+     <sequence>
+      <element name="election" type="xsd:string"/>
+      <element name="area" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getCansResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getCansReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeSystem">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removeSystemResponse">
+    <complexType>
+     <sequence>
+      <element name="removeSystemReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="getAreaInfo">
     <complexType>
      <sequence>
@@ -49,70 +219,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="ranked" type="xsd:boolean"/>
     </sequence>
    </complexType>
-   <element name="getSystem">
-    <complexType>
-     <sequence>
-      <element name="name" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getSystemResponse">
-    <complexType>
-     <sequence>
-      <element maxOccurs="unbounded" name="getSystemReturn" type="impl:Area"/>
-     </sequence>
-    </complexType>
-   </element>
-   <complexType name="Area">
-    <sequence>
-     <element name="name" nillable="true" type="xsd:string"/>
-     <element name="numOfVotesPerVoter" type="xsd:int"/>
-     <element name="ranked" type="xsd:boolean"/>
-     <element name="systemName" nillable="true" type="xsd:string"/>
-    </sequence>
-   </complexType>
-   <element name="setNewArea">
-    <complexType>
-     <sequence>
-      <element name="name" type="xsd:string"/>
-      <element name="system" type="xsd:string"/>
-      <element name="novpv" type="xsd:int"/>
-      <element name="isRanked" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setNewAreaResponse">
-    <complexType>
-     <sequence>
-      <element name="setNewAreaReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getSavedSystems">
-    <complexType/>
-   </element>
-   <element name="getSavedSystemsResponse">
-    <complexType>
-     <sequence>
-      <element maxOccurs="unbounded" name="getSavedSystemsReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setNewElection">
-    <complexType>
-     <sequence>
-      <element name="name" type="xsd:string"/>
-      <element name="electingSystem" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setNewElectionResponse">
-    <complexType>
-     <sequence>
-      <element name="setNewElectionReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
    <element name="setCandidates">
     <complexType>
      <sequence>
@@ -129,109 +235,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      </sequence>
     </complexType>
    </element>
-   <element name="getCans">
-    <complexType>
-     <sequence>
-      <element name="election" type="xsd:string"/>
-      <element name="area" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getCansResponse">
-    <complexType>
-     <sequence>
-      <element maxOccurs="unbounded" name="getCansReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setNewElectingSystem">
-    <complexType>
-     <sequence>
-      <element name="name" type="xsd:string"/>
-      <element name="numOfAreas" type="xsd:int"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setNewElectingSystemResponse">
-    <complexType>
-     <sequence>
-      <element name="setNewElectingSystemReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getLastElectionCans">
-    <complexType>
-     <sequence>
-      <element name="area" type="xsd:string"/>
-      <element name="system" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getLastElectionCansResponse">
-    <complexType>
-     <sequence>
-      <element maxOccurs="unbounded" name="getLastElectionCansReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getSavedElectionsNames">
+   <element name="getSavedSystems">
     <complexType/>
    </element>
-   <element name="getSavedElectionsNamesResponse">
+   <element name="getSavedSystemsResponse">
     <complexType>
      <sequence>
-      <element maxOccurs="unbounded" name="getSavedElectionsNamesReturn" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setCurrentElection">
-    <complexType>
-     <sequence>
-      <element name="electionName" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="setCurrentElectionResponse">
-    <complexType>
-     <sequence>
-      <element name="setCurrentElectionReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="endRunningElection">
-    <complexType/>
-   </element>
-   <element name="endRunningElectionResponse">
-    <complexType>
-     <sequence>
-      <element name="endRunningElectionReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getSystemElection">
-    <complexType>
-     <sequence>
-      <element name="election" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="getSystemElectionResponse">
-    <complexType>
-     <sequence>
-      <element name="getSystemElectionReturn" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="getSavedSystemsReturn" type="xsd:string"/>
      </sequence>
     </complexType>
    </element>
   </schema>
  </wsdl:types>
-
-   <wsdl:message name="setNewAreaRequest">
-
-      <wsdl:part element="impl:setNewArea" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
 
    <wsdl:message name="getSavedElectionsNamesResponse">
 
@@ -241,9 +256,25 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="setNewAreaResponse">
+   <wsdl:message name="removeSystemResponse">
 
-      <wsdl:part element="impl:setNewAreaResponse" name="parameters">
+      <wsdl:part element="impl:removeSystemResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getRunningElectionRequest">
+
+      <wsdl:part element="impl:getRunningElection" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeElectionRequest">
+
+      <wsdl:part element="impl:removeElection" name="parameters">
 
       </wsdl:part>
 
@@ -252,6 +283,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="setNewElectingSystemRequest">
 
       <wsdl:part element="impl:setNewElectingSystem" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeSystemRequest">
+
+      <wsdl:part element="impl:removeSystem" name="parameters">
 
       </wsdl:part>
 
@@ -305,17 +344,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getSavedSystemsRequest">
+   <wsdl:message name="getRunningElectionResponse">
 
-      <wsdl:part element="impl:getSavedSystems" name="parameters">
+      <wsdl:part element="impl:getRunningElectionResponse" name="parameters">
 
       </wsdl:part>
 
    </wsdl:message>
 
-   <wsdl:message name="setNewElectionResponse">
+   <wsdl:message name="getSavedSystemsRequest">
 
-      <wsdl:part element="impl:setNewElectionResponse" name="parameters">
+      <wsdl:part element="impl:getSavedSystems" name="parameters">
 
       </wsdl:part>
 
@@ -332,14 +371,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="setCandidatesResponse">
 
       <wsdl:part element="impl:setCandidatesResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="setNewElectionRequest">
-
-      <wsdl:part element="impl:setNewElection" name="parameters">
 
       </wsdl:part>
 
@@ -380,6 +411,14 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="getSavedSystemsResponse">
 
       <wsdl:part element="impl:getSavedSystemsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createNewElectionRequest">
+
+      <wsdl:part element="impl:createNewElection" name="parameters">
 
       </wsdl:part>
 
@@ -441,6 +480,22 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="removeElectionResponse">
+
+      <wsdl:part element="impl:removeElectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createNewElectionResponse">
+
+      <wsdl:part element="impl:createNewElectionResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="getCansRequest">
 
       <wsdl:part element="impl:getCans" name="parameters">
@@ -463,18 +518,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getAreaInfo">
-
-         <wsdl:input message="impl:getAreaInfoRequest" name="getAreaInfoRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:getAreaInfoResponse" name="getAreaInfoResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
       <wsdl:operation name="getSystem">
 
          <wsdl:input message="impl:getSystemRequest" name="getSystemRequest">
@@ -487,109 +530,25 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="setNewArea">
+      <wsdl:operation name="getRunningElection">
 
-         <wsdl:input message="impl:setNewAreaRequest" name="setNewAreaRequest">
+         <wsdl:input message="impl:getRunningElectionRequest" name="getRunningElectionRequest">
 
        </wsdl:input>
 
-         <wsdl:output message="impl:setNewAreaResponse" name="setNewAreaResponse">
+         <wsdl:output message="impl:getRunningElectionResponse" name="getRunningElectionResponse">
 
        </wsdl:output>
 
       </wsdl:operation>
 
-      <wsdl:operation name="getSavedSystems">
+      <wsdl:operation name="getSystemElection">
 
-         <wsdl:input message="impl:getSavedSystemsRequest" name="getSavedSystemsRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:getSavedSystemsResponse" name="getSavedSystemsResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setNewElection">
-
-         <wsdl:input message="impl:setNewElectionRequest" name="setNewElectionRequest">
+         <wsdl:input message="impl:getSystemElectionRequest" name="getSystemElectionRequest">
 
        </wsdl:input>
 
-         <wsdl:output message="impl:setNewElectionResponse" name="setNewElectionResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setCandidates">
-
-         <wsdl:input message="impl:setCandidatesRequest" name="setCandidatesRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:setCandidatesResponse" name="setCandidatesResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getCans">
-
-         <wsdl:input message="impl:getCansRequest" name="getCansRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:getCansResponse" name="getCansResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setNewElectingSystem">
-
-         <wsdl:input message="impl:setNewElectingSystemRequest" name="setNewElectingSystemRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:setNewElectingSystemResponse" name="setNewElectingSystemResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getLastElectionCans">
-
-         <wsdl:input message="impl:getLastElectionCansRequest" name="getLastElectionCansRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:getLastElectionCansResponse" name="getLastElectionCansResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getSavedElectionsNames">
-
-         <wsdl:input message="impl:getSavedElectionsNamesRequest" name="getSavedElectionsNamesRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:getSavedElectionsNamesResponse" name="getSavedElectionsNamesResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setCurrentElection">
-
-         <wsdl:input message="impl:setCurrentElectionRequest" name="setCurrentElectionRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:setCurrentElectionResponse" name="setCurrentElectionResponse">
+         <wsdl:output message="impl:getSystemElectionResponse" name="getSystemElectionResponse">
 
        </wsdl:output>
 
@@ -607,13 +566,133 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getSystemElection">
+      <wsdl:operation name="setCurrentElection">
 
-         <wsdl:input message="impl:getSystemElectionRequest" name="getSystemElectionRequest">
+         <wsdl:input message="impl:setCurrentElectionRequest" name="setCurrentElectionRequest">
 
        </wsdl:input>
 
-         <wsdl:output message="impl:getSystemElectionResponse" name="getSystemElectionResponse">
+         <wsdl:output message="impl:setCurrentElectionResponse" name="setCurrentElectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSavedElectionsNames">
+
+         <wsdl:input message="impl:getSavedElectionsNamesRequest" name="getSavedElectionsNamesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getSavedElectionsNamesResponse" name="getSavedElectionsNamesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLastElectionCans">
+
+         <wsdl:input message="impl:getLastElectionCansRequest" name="getLastElectionCansRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getLastElectionCansResponse" name="getLastElectionCansResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createNewElection">
+
+         <wsdl:input message="impl:createNewElectionRequest" name="createNewElectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createNewElectionResponse" name="createNewElectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewElectingSystem">
+
+         <wsdl:input message="impl:setNewElectingSystemRequest" name="setNewElectingSystemRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setNewElectingSystemResponse" name="setNewElectingSystemResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeElection">
+
+         <wsdl:input message="impl:removeElectionRequest" name="removeElectionRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:removeElectionResponse" name="removeElectionResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCans">
+
+         <wsdl:input message="impl:getCansRequest" name="getCansRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCansResponse" name="getCansResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeSystem">
+
+         <wsdl:input message="impl:removeSystemRequest" name="removeSystemRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:removeSystemResponse" name="removeSystemResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdl:input message="impl:getAreaInfoRequest" name="getAreaInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAreaInfoResponse" name="getAreaInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setCandidates">
+
+         <wsdl:input message="impl:setCandidatesRequest" name="setCandidatesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setCandidatesResponse" name="setCandidatesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSavedSystems">
+
+         <wsdl:input message="impl:getSavedSystemsRequest" name="getSavedSystemsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getSavedSystemsResponse" name="getSavedSystemsResponse">
 
        </wsdl:output>
 
@@ -643,24 +722,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getAreaInfo">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="getAreaInfoRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="getAreaInfoResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
       <wsdl:operation name="getSystem">
 
          <wsdlsoap:operation soapAction=""/>
@@ -679,17 +740,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="setNewArea">
+      <wsdl:operation name="getRunningElection">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="setNewAreaRequest">
+         <wsdl:input name="getRunningElectionRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="setNewAreaResponse">
+         <wsdl:output name="getRunningElectionResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -697,143 +758,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getSavedSystems">
+      <wsdl:operation name="getSystemElection">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="getSavedSystemsRequest">
+         <wsdl:input name="getSystemElectionRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="getSavedSystemsResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setNewElection">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="setNewElectionRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="setNewElectionResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setCandidates">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="setCandidatesRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="setCandidatesResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getCans">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="getCansRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="getCansResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setNewElectingSystem">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="setNewElectingSystemRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="setNewElectingSystemResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getLastElectionCans">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="getLastElectionCansRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="getLastElectionCansResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="getSavedElectionsNames">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="getSavedElectionsNamesRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="getSavedElectionsNamesResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="setCurrentElection">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="setCurrentElectionRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="setCurrentElectionResponse">
+         <wsdl:output name="getSystemElectionResponse">
 
             <wsdlsoap:body use="literal"/>
 
@@ -859,17 +794,197 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="getSystemElection">
+      <wsdl:operation name="setCurrentElection">
 
          <wsdlsoap:operation soapAction=""/>
 
-         <wsdl:input name="getSystemElectionRequest">
+         <wsdl:input name="setCurrentElectionRequest">
 
             <wsdlsoap:body use="literal"/>
 
          </wsdl:input>
 
-         <wsdl:output name="getSystemElectionResponse">
+         <wsdl:output name="setCurrentElectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSavedElectionsNames">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSavedElectionsNamesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSavedElectionsNamesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLastElectionCans">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getLastElectionCansRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getLastElectionCansResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createNewElection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createNewElectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createNewElectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setNewElectingSystem">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setNewElectingSystemRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setNewElectingSystemResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeElection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeElectionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeElectionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCans">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCansRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCansResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeSystem">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeSystemRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeSystemResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAreaInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAreaInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setCandidates">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setCandidatesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setCandidatesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSavedSystems">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSavedSystemsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSavedSystemsResponse">
 
             <wsdlsoap:body use="literal"/>
 

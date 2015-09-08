@@ -4,6 +4,23 @@
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
   <schema elementFormDefault="qualified" targetNamespace="http://services" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="updateResults">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:string"/>
+      <element name="election" type="xsd:string"/>
+      <element name="area" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="votes" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="updateResultsResponse">
+    <complexType>
+     <sequence>
+      <element name="updateResultsReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
    <element name="getAreaInfo">
     <complexType>
      <sequence>
@@ -32,23 +49,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="ranked" type="xsd:boolean"/>
     </sequence>
    </complexType>
-   <element name="updateResults">
-    <complexType>
-     <sequence>
-      <element name="id" type="xsd:string"/>
-      <element name="election" type="xsd:string"/>
-      <element name="area" type="xsd:string"/>
-      <element maxOccurs="unbounded" name="votes" type="xsd:string"/>
-     </sequence>
-    </complexType>
-   </element>
-   <element name="updateResultsResponse">
-    <complexType>
-     <sequence>
-      <element name="updateResultsReturn" type="xsd:boolean"/>
-     </sequence>
-    </complexType>
-   </element>
   </schema>
  </wsdl:types>
 
@@ -86,18 +86,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:portType name="PollingStationService">
 
-      <wsdl:operation name="getAreaInfo">
-
-         <wsdl:input message="impl:getAreaInfoRequest" name="getAreaInfoRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:getAreaInfoResponse" name="getAreaInfoResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
       <wsdl:operation name="updateResults">
 
          <wsdl:input message="impl:updateResultsRequest" name="updateResultsRequest">
@@ -110,29 +98,23 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdl:input message="impl:getAreaInfoRequest" name="getAreaInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAreaInfoResponse" name="getAreaInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
    </wsdl:portType>
 
    <wsdl:binding name="PollingStationServiceSoapBinding" type="impl:PollingStationService">
 
       <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-
-      <wsdl:operation name="getAreaInfo">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="getAreaInfoRequest">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="getAreaInfoResponse">
-
-            <wsdlsoap:body use="literal"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
 
       <wsdl:operation name="updateResults">
 
@@ -145,6 +127,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="updateResultsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAreaInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAreaInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAreaInfoResponse">
 
             <wsdlsoap:body use="literal"/>
 

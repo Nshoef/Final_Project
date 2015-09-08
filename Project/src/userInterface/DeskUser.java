@@ -1,4 +1,4 @@
-package desk;
+package userInterface;
 
 import java.io.InputStream;
 import java.rmi.RemoteException;
@@ -6,12 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import desk.DeskManager;
+import desk.DeskManagerImpl;
+import service.DeskServiceProxy;
+
 /**
  * This class is a simple use interface for a desk in polling station.
  * @author Noam
  *
  */
-public class DeskUser {
+public class DeskUser implements Runnable{
 	public static Scanner in;
 	public DeskManager desk;
 	
@@ -24,13 +28,13 @@ public class DeskUser {
 	/**
 	 * This method initialised the desk and start the main menu.
 	 */
-	public void start() {
+	public void run() {
 		boolean check = false;
 		while(!check) {
 			try {
 				System.out.println("Enter a number for this desk: ");
 				int num = Integer.parseInt(in.nextLine());
-				desk = new DeskManager(num);
+				desk = new DeskManagerImpl(num, new DeskServiceProxy());
 				check = true;
 			} catch (NumberFormatException e) {
 				System.out.println("Illegal input, try again");
@@ -45,6 +49,7 @@ public class DeskUser {
 				System.out.println("press 1 to start voting, 0 to close this station");
 				int num = Integer.parseInt(in.nextLine());
 				if(num == 0) {
+					System.out.println("Byebye");
 					return;
 				} else if (num == 1) {
 					vote();
@@ -115,7 +120,7 @@ public class DeskUser {
 						if (result) {
 							run = false;
 							check = true;
-							System.out.println("Your vove has been accepted, thank you for voring!");
+							System.out.println("Your vote has been accepted, thank you for voting!");
 							
 						} else {
 							System.out.println("There was a connection error, please try again");
@@ -128,9 +133,6 @@ public class DeskUser {
 					}
 				} catch (NumberFormatException | IndexOutOfBoundsException e ) {
 					System.out.println("Illegal input");
-				} catch (RemoteException e) {
-					System.out.println("There was a connection error, please try again");
-					e.printStackTrace();
 				}	
 			}
 		}	

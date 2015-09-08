@@ -34,7 +34,7 @@ public class DeskServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("addVote");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service", "query"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://service", "cans"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String[].class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
         oper.setReturnClass(boolean.class);
@@ -190,7 +190,7 @@ public class DeskServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 }
     }
 
-    public boolean addVote(java.lang.String query) throws java.rmi.RemoteException {
+    public boolean addVote(java.lang.String[] cans) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -206,7 +206,7 @@ public class DeskServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {query});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {cans});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;

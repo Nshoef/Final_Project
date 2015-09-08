@@ -10,7 +10,7 @@ package service;
 public interface ManagerService extends java.rmi.Remote {
     public int[] getResults(java.lang.String can) throws java.rmi.RemoteException;
     public boolean updateInfo(java.lang.String area, java.lang.String name) throws java.rmi.RemoteException;
-    public service.AreaInfo getAreaInfo() throws java.rmi.RemoteException;
     public boolean sentResult() throws java.rmi.RemoteException;
     public boolean closeStation() throws java.rmi.RemoteException;
+    public service.AreaInfo getAreaInfo() throws java.rmi.RemoteException;
 }

@@ -1,19 +1,25 @@
-package manager;
+package userInterface;
 
 import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.Map;
 import java.util.Scanner;
 
-public class StationManagerUser {
+import manager.StationManager;
+import manager.StationManagerImpl;
+import service.ManagerServiceProxy;
+
+public class StationManagerUser implements Runnable{
 	private static Scanner in;
 	private StationManager manager;
 	
 	
+	
 
 	public StationManagerUser(InputStream input) {
-		in = new Scanner(input);
+		in = new Scanner(input);	
 	}
+	
 	
 	/**
 	 * This method run the main menu of the pooling station.
@@ -55,7 +61,7 @@ public class StationManagerUser {
 		System.out.println("Enter the area of this station (make sure you enter the exact name)");
 		String area = in.nextLine();
 		try {
-			manager = new StationManager(name, area);
+			manager = new StationManagerImpl(name, area, new ManagerServiceProxy());
 			System.out.println("Getting information and updates from main server...");
 			if(!manager.updateInfo()) {
 				System.out.println("Connection problem or wrong area entry");
@@ -91,7 +97,7 @@ public class StationManagerUser {
 	 */
 	public void sendResult() {
 		try {
-			manager = new StationManager();
+			manager = new StationManagerImpl(new ManagerServiceProxy());
 			if(manager.sendResults()){
 				System.out.println("Votes sent successfully to the main database");
 			} else {
@@ -108,24 +114,26 @@ public class StationManagerUser {
 	 * This method send the result to the main database and remove the information from the local database.
 	 */
 	public void closeStation() {
-		try {
-			System.out.println("This option will clear all the information on the database, are you sure? y/n");
-			boolean check = false;
-			while(!check) {
-				String ans = in.nextLine();
-				if(ans.equals("y")) {
-					if(manager.sendResults()) {
-						manager.closeStation();
-					}
-					check = true;
-				} else if (ans.equals("n")) {
-					check = true;
-				} else {
-					System.out.println("Illegal input");
-				}	
-			}
-		} catch (RemoteException e) {
-			System.out.println("Something went wrong, try again.");
+		try{
+			manager.getInfo();
+		} catch (NullPointerException e) {
+			System.out.println("System is not open");
+			return;
+		}
+		System.out.println("This option will clear all the information on the database, are you sure? y/n");
+		boolean check = false;
+		while(!check) {
+			String ans = in.nextLine();
+			if(ans.equals("y")) {
+				if(manager.sendResults()) {
+					manager.closeStation();
+				}
+				check = true;
+			} else if (ans.equals("n")) {
+				check = true;
+			} else {
+				System.out.println("Illegal input");
+			}	
 		}
 	}
 	
@@ -134,7 +142,7 @@ public class StationManagerUser {
 	 */
 	private void viewResult() {
 		try {
-			manager = new StationManager();
+			manager = new StationManagerImpl(new ManagerServiceProxy());
 			Map<String, Integer[]> result = manager.getResutls();
 			for(String s : result.keySet()) {
 				System.out.print("Can "+s+": ");

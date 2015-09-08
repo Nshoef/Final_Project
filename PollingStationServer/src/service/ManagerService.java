@@ -1,7 +1,10 @@
 package service;
 
+
 import java.rmi.RemoteException;
 import javax.jws.WebService;
+
+import services.PollingStationServiceProxy;
 
 /**
  * 
@@ -10,11 +13,27 @@ import javax.jws.WebService;
  */
 @WebService
 public class ManagerService {
-	private static DBConnection db = new DBConnection();
+	private static DBConnection db;
 	
+	static {
+		db = new DBConnectionImpl(new PollingStationServiceProxy() );
+	}
 	
 	/**
-	 * This method undate the local databse with the relevant information according to the given area
+	 * This is a default construction
+	 */
+	public ManagerService() {}
+	
+	/**
+	 * This construction enable the user to use his own connection to the database (used by the testers).
+	 * @param db is the DBConnection to be used.
+	 */
+	public ManagerService(DBConnection db) {
+		ManagerService.db = db;
+	}
+	
+	/**
+	 * This method update the local database with the relevant information according to the given area
 	 * @param area is the name of the area which this polling station is in.
 	 * @param name is the name of the polling station.
 	 * @return true if the update process was successful.
@@ -40,7 +59,7 @@ public class ManagerService {
 	 * @throws RemoteException
 	 */
 	public boolean sentResult() throws RemoteException {
-		return db.sendresults();
+		return db.sendResults();
 	}
 	
 	/**
@@ -52,13 +71,10 @@ public class ManagerService {
 	}
 	
 	/**
-	 * This method remove all the information from the database.
-	 * @return
+	 * This method send the results to the main database and remove all the information from the database.
+	 * @return true if the both were successfully done.
 	 */
 	public boolean closeStation() {
 		return db.closeStation();
 	}
-	
-
-
 }
